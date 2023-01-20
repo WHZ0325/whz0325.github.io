@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <title>
+        
+            Python 语法笔记 - WHZ0325&#39;s Space
+        
+    </title>
+
+    <link rel="canonical" href="https://whz0325.github.io/python-notes/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">WHZ0325&#39;s Space</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    <li>
+                        <a href="/archives/">归档</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    <li>
+                        <a href="/daily-log/">日记</a>
+                    </li>
+                    -->
+                    <li>
+                        <a href="/updating-log/">更新日志</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function() {
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        } else {
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Header -->
+
+<header class="intro-header" style="background-image: url('/images/bg-img/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                            <a class="tag" href="/tags/Python/" title="Python">Python</a>
+                        
+                    </div>
+                    <h1 style="font-size: 40px;">Python 语法笔记</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by WHZ0325 on 2022-10-15,
+                        <span id="busuanzi_container_page_pv">
+                            Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span> times
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+            
+                <p>内容全部摘自一个讲 Python 语法的网站，算是个速查吧。</p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li>注释：单行注释 <code>#</code>，多行注释用 <code>&#39;&#39;&#39;</code> 或 <code>&quot;&quot;&quot;</code> 包裹。</li>
+<li>缩进须严格一致，<code>\</code> 用于换行继续写。</li>
+<li>字符串不区分单双引号，三引号可表示多行字符串。</li>
+<li>使用 <code>r&quot;string\n&quot;</code> 可以让 <code>\</code> 不转译。</li>
+<li>字符串取子串用 <code>[首下标:尾下标:步长]</code>，负数代表倒着数。</li>
+<li>字符串加法代表连接，乘法代表重复。</li>
+<li><code>print()</code> 默认换行，可指定 <code>print(element, end=&quot;&quot;)</code> 设置不换行。</li>
+<li>导入：<code>import</code>、<code>from module import function</code>、<code>from module import *</code>。</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li>类型名首字母大写，支持复数 <code>1+2j</code> 或 <code>complex(1, 2)</code>。</li>
+<li><code>type()</code> 查询变量的类型，<code>isinstance(a, Int)</code> 会判断变量是否为指定类型（子类也算哦）。</li>
+<li>删除对象 <code>del ver_1, ver_2</code></li>
+<li><code>/</code> 得到浮点数，<code>//</code> 得到整数，<code>**</code> 是乘方。</li>
+<li>列表类型 <code>List[&quot;&quot;, &quot;&quot;, &quot;&quot;]</code> 里啥都能塞。</li>
+<li>技巧 <code>list = list[-1::-1]</code> 反转一个列表（步长 $-1$）。</li>
+<li>元组类型 <code>Tuple(&quot;&quot;, &quot;&quot;, &quot;&quot;)</code> 内元素不能修改。</li>
+<li>集合类型 <code>Set&#123;&quot;&quot;, &quot;&quot;, &quot;&quot;&#125;</code> 或 <code>set(&quot;&quot;)</code>，可以用 <code>-</code> 求差集，用 <code>&amp;</code> 求交集，用 <code>｜</code> 求并集，用 <code>^</code> 求不同元素。</li>
+<li>字典类型 <code>Dictionary[&quot;location&quot;] = 1</code>，可用 <code>dictionary.keys()</code> 和 <code>dictionary.values()</code>，构造函数 <code>dict([(&quot;one&quot;, 1), (&quot;two&quot;, 2)])</code> 或 <code>dict(one = 1, two = 2)</code>。（感觉就是个 <code>map</code>【逃）</li>
+<li>一些好用的函数：<code>hex(x)</code> 将整数转为十六进制字符串，<code>oct(x)</code> 将整数转为八进制字符串，<code>ord(x)</code> 将字符转为整数， <code>chr(x)</code> 将整数转为字符，<code>eval(str)</code> 计算字符串中的表达式……</li>
+</ul>
+<h3 id="推导式"><a href="#推导式" class="headerlink" title="推导式"></a>推导式</h3><p>一个有趣的东西。</p>
+<ul>
+<li>列表的例子：<code>[name.upper() for name in names if len(name) &gt; 3]</code></li>
+<li>列表的例子：<code>[i for i in range(30) if i % 3 == 0]</code></li>
+<li>字典的例子：<code>&#123;key: len(key) for key in strings&#125;</code></li>
+<li>集合的例子：<code>&#123;i**2 for i in (1, 2, 3)&#125;</code></li>
+<li>集合的例子：<code>&#123;x for x in &quot;abcdef&quot; if x not in &quot;abc&quot;&#125;</code></li>
+<li>元组的例子：<code>(x for x in range(1, 10))</code></li>
+</ul>
+<hr>
+<p>Python3 太强了，感觉再也不想用 C 了也说不定？明天接着写。</p>
+<hr>
+<p>然后就拖到后天了（</p>
+<ul>
+<li><code>f&quot;&#123;&#125;&quot;</code> 字符串前加 <code>f</code> 表示允许出现 <code>&#123;&#125;</code> 包裹的 Python 表达式。（顺便字符串前加的 <code>r</code> 是 raw 的缩写）</li>
+<li>海象运算符 <code>:=</code>，目前觉得是在表达式中赋值，不太清楚到底怎么个用法。</li>
+<li>Python 可以直接用关键字 <code>and</code>、<code>or</code>、<code>not</code>，如 <code>a and b</code>。</li>
+<li>还有：<code>in</code> 和 <code>not in</code> 以及 <code>is</code> 和 <code>is not</code>（引用变量是否为同一个）。</li>
+<li><code>id()</code> 函数用于获取对象内存地址。</li>
+</ul>
+<h3 id="数学相关"><a href="#数学相关" class="headerlink" title="数学相关"></a>数学相关</h3><p>（使用需要如 <code>math.modf(x)</code>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br></pre></td></tr></table></figure>
+
+<p>基本函数 <code>abs(x)</code>、<code>ceil(x)</code>、<code>floor(x)</code>、<code>exp(x)</code>、<code>fabs(x)</code>、<code>log(x)</code>、<code>log10(x)</code>、<code>max(x1, x2, ... , xn)</code>、<code>min(x1, x2, ... , xn)</code>、<code>pow(x, y)</code>、<code>round(x[, n])</code>、<code>sqrt(x)</code>。</p>
+<p><code>modf(x)</code> 用于返回整数部分和小数部分。</p>
+<p><code>hypot(x, y)</code> 用于返回 $\sqrt{x^2+y^2}$。</p>
+<p><code>degrees(x)</code> 弧度转角度，<code>radians(x)</code> 角度转弧度。</p>
+<p>数学常量 <code>pi</code> 和 <code>e</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br></pre></td></tr></table></figure>
+
+<p><code>choice(seq)</code> 在序列中随机挑选，<code>randrange([start, ]stop[, step])</code>，<code>random()</code> 生成 $[0,1)$ 范围内的随机数，<code>seed([x])</code>，<code>suffle(seq)</code> 将序列打乱，<code>uniform(x, y)</code> 随机生成 $[x, y]$ 范围内的实数。</p>
+<hr>
+<p>“字符串”到“集合”这几节先鸽着。</p>
+<hr>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 表达式:</span><br><span class="line">    <span class="comment">#</span></span><br><span class="line"><span class="keyword">elif</span> 表达式:</span><br><span class="line">    <span class="comment">#</span></span><br><span class="line"><span class="keyword">else</span>:</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 表达式:</span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">pass</span> <span class="comment"># 没用语句</span></span><br><span class="line"><span class="keyword">else</span>:</span><br></pre></td></tr></table></figure>
+
+<p>压行：<code>while (not yahangdamie): print(&quot;压行啦！！！&quot;)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">&quot;C&quot;</span>, <span class="string">&quot;C++&quot;</span>, <span class="string">&quot;Python&quot;</span>]:</span><br><span class="line">    <span class="comment">#</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment">#</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    <span class="comment"># 0 -&gt; 4</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>, <span class="number">9</span>):</span><br><span class="line">    <span class="comment"># 5 -&gt; 8</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>, <span class="number">3</span>):</span><br><span class="line">    <span class="comment"># 0 3 6 9</span></span><br><span class="line"><span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>)) <span class="comment"># [0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function0</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;function0&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>传参时形式参数和实际参数指向同一个 $id$，内容改变后指向不同 $id$（用 <code>id(x)</code> 查看）。</li>
+<li>函数内可变对象（如列表）改变会影响函数外。</li>
+<li>可以设置参数默认值 <code>function0(author = &quot;whz0325&quot;)</code>，可以在调用时指定参数 <code>function0(name = &quot;whz&quot;, id = 325)</code>。</li>
+</ul>
+<p>不定长参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>(<span class="params">*tmp</span>):</span> <span class="comment"># * 传入元组</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> tmp:</span><br><span class="line">        <span class="built_in">print</span>(x)</span><br><span class="line">test(<span class="number">1.0</span>, <span class="number">2</span>, <span class="string">&quot;string&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span>(<span class="params">**dic</span>):</span> <span class="comment"># ** 传入字典</span></span><br><span class="line">    <span class="keyword">for</span> (a, b) <span class="keyword">in</span> dic.items():</span><br><span class="line">        <span class="built_in">print</span>(a, b)</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> dic.keys():</span><br><span class="line">        <span class="built_in">print</span>(key + <span class="string">&#x27;: &#x27;</span> + <span class="built_in">str</span>(dic[key]))</span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> dic.values():</span><br><span class="line">        <span class="built_in">print</span>(value)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">test2(a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>也可以 <code>def test2(a, b, *, c)</code>。</p>
+<p>匿名函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func = <span class="keyword">lambda</span> x, y: x + y</span><br><span class="line"><span class="built_in">print</span>(func(<span class="number">1</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li><code>[left, right]</code>  取子串，下标 $0$ 开始，左开右闭，可省略某项，负数从 $-1$ 开始倒数。</li>
+<li>C 语言中的转义字符也可以用：<code>\175</code> 表示八进制数，<code>\x6a</code> 表示十六进制数。</li>
+</ul>
+<p>格式化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;whz0325&quot;</span></span><br><span class="line">age = <span class="number">18</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%s de age is forever %d&quot;</span> % (name, age))</span><br></pre></td></tr></table></figure>
+
+<p><code>%e</code> 为科学计数法形式的浮点数，<code>%o</code> 为八进制，<code>%x</code> 为十六进制（<code>%X</code> 为大写）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi = <span class="number">3.1415926</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%010.3f&quot;</span> % pi) <span class="comment"># &quot;000003.142&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;%10.3f&quot;</span> % pi) <span class="comment"># &quot;     3.142&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;whz0325&quot;</span></span><br><span class="line"><span class="built_in">print</span>(s.capitalize()) <span class="comment"># Whz0325</span></span><br><span class="line"><span class="built_in">print</span>(s.center(<span class="number">12</span>, <span class="string">&quot;_&quot;</span>)) <span class="comment"># __whz0325___</span></span><br><span class="line"><span class="built_in">print</span>(s.count(<span class="string">&#x27;0&#x27;</span>)) <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(s.count(<span class="string">&#x27;0&#x27;</span>, <span class="number">4</span>, <span class="built_in">len</span>(s))) <span class="comment"># 0</span></span><br><span class="line"><span class="built_in">print</span>(s.endswith(<span class="string">&#x27;32&#x27;</span>, <span class="number">0</span>, <span class="built_in">len</span>(s) - <span class="number">1</span>)) <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(s.find(<span class="string">&#x27;250&#x27;</span>, <span class="number">0</span>, <span class="built_in">len</span>(s))) <span class="comment"># -1</span></span><br><span class="line"><span class="built_in">print</span>(s.isalnum()) <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(s.isalpha()) <span class="comment"># False</span></span><br><span class="line"><span class="built_in">print</span>(s.isdigit()) <span class="comment"># False</span></span><br><span class="line"><span class="comment"># isupper() islower()</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot; &quot;</span>.join([<span class="string">&quot;whz0325&quot;</span>, <span class="string">&quot;and&quot;</span>, <span class="string">&quot;his&quot;</span>, <span class="string">&quot;friends&quot;</span>])) <span class="comment"># whz0325 and his friends</span></span><br><span class="line"><span class="comment"># max(s) min(s)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ababab&quot;</span>.replace(<span class="string">&quot;ab&quot;</span>, <span class="string">&quot;cd&quot;</span>, <span class="number">2</span>)) <span class="comment"># cdcdab</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ul>
+<li>像数组一样的东西，可以搞二维列表</li>
+<li><code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].append(&#39;d&#39;)</code>。</li>
+<li><code>del list[-2]</code> 删除倒数第二个元素（可以删除中间元素）。</li>
+<li><code>max(list)</code> 和 <code>min(list)</code> 返回列表最值。</li>
+</ul>
+<p>排序和其它函数明天更。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>坑着。</p>
+
+
+                <br><hr>
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/abstract-algebra/" data-toggle="tooltip" data-placement="top" title="抽象代数笔记"><i class="fa fa-angle-left"></i> 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/lg-p1175/" data-toggle="tooltip" data-placement="top" title="【洛谷 P1175】表达式求值">下一篇 <i class="fa fa-angle-right"></i></a>
+                        </li>
+                    
+                </ul>
+
+                
+            </div>
+            <!-- Old Sidebar Container Has Been Deleted -->
+        </div>
+    </div>
+</article>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg" id="rss">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #rss {color: #404040;}
+                                #rss:hover {color: #F5A623;}
+                            </style>
+                        </a>
+                    </li>
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/whz0325">
+                            <span class="fa-stack fa-lg" id="zhihu">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                            <style>
+                                #zhihu {color: #404040;}
+                                #zhihu:hover {color: #0384FF;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=1669135547&site=qq&menu=yes">
+                            <span class="fa-stack fa-lg" id="qq">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #qq {color: #404040;}
+                                #qq:hover {color: #F4000F;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/whz0325">
+                            <span class="fa-stack fa-lg" id="github">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #github {color: #404040;}
+                                #github:hover {color: #171515;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 2017-2023 WHZ0325
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
+                    </span>
+                    |
+                    <span id="busuanzi_container_site_uv">
+                        本站总访客数 <span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-pulse"></i></span> 人次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://whz0325.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!--busuanzi.js -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '2ae416ce2071d64b26f967fa5dd778b4';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

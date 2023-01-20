@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <title>
+        
+            【清华集训 2016】组合数问题 - WHZ0325&#39;s Space
+        
+    </title>
+
+    <link rel="canonical" href="https://whz0325.github.io/bzoj-4737/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">WHZ0325&#39;s Space</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    <li>
+                        <a href="/archives/">归档</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    <li>
+                        <a href="/daily-log/">日记</a>
+                    </li>
+                    -->
+                    <li>
+                        <a href="/updating-log/">更新日志</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function() {
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        } else {
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Header -->
+
+<header class="intro-header" style="background-image: url('/images/bg-img/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                            <a class="tag" href="/tags/Lucas定理/" title="Lucas定理">Lucas定理</a>
+                        
+                            <a class="tag" href="/tags/数位DP/" title="数位DP">数位DP</a>
+                        
+                    </div>
+                    <h1 style="font-size: 40px;">【清华集训 2016】组合数问题</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by WHZ0325 on 2019-04-26,
+                        <span id="busuanzi_container_page_pv">
+                            Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span> times
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+            
+                <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>$t$ 组数据，每组数据给定 $n,m$ 和 $k$，求对于所有的 $0\le i\le n$，$0\le j\le \min(i,m)$ 有多少对 $(i,j)$ 满足 $C_i^j$ 是 $k$ 的倍数。</p>
+<p>$1\le n,m\le 10^{18}$，$1\le t,k\le 100$，且 $k$ 是一个质数。</p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>问题所求即有多少对 $(i,j)$ 满足 $C_i^j%k=0$，观察到 $k$ 比较小且为质数，可以使用 Lucas 定理求解。</p>
+<p>要使结果为 $0$，Lucas 定理的过程中一定有一部分乘积为 $0$，组合数 $C_n^k$ 当且仅当 $k\gt n$ 时值为 $0$，考虑数位 DP，直接求解比较复杂，将至少有一部分乘积为 $0$ 转化为总的方案数减去没有任何一部分为 $0$ 的方案数。</p>
+<p>先考虑总的方案数如何计算，分成 $n\le m$ 和 $n\gt m$ 两部分，前半部分显然是 $1+2+\dots +(m+1)=\frac{(m+1)\times(m+2)}{2}$，后半部分显然每个 $n$ 有 $[0,m]$ 共 $m+1$ 种 $i$ 可用，共有 $n-m$ 个大于 $m$ 的 $n$，因此总的方案数为 $\frac{(m+1)(m+2)}{2}+(m+1)(n-m)$。</p>
+<p>当 $k=1$ 时答案就是总的方案数，否则 Lucas 定理的过程中最多有 $log_2(10^{18})=60$ 位，则没有任何一部分为 $0$ 的方案数可以设 $f[i][0/1][0/1]$ 表示从左到右前 $i$ 位，$n$ 目前是/否达到上界以及 $m$ 目前是/否达到上界时没有任何一部分为 $0$ 的方案数，设计转移即可。</p>
+<p>时间复杂度为 $O(60t)$。</p>
+<p>注意由于每一部分的上界是一个余数，因此存在 $k\le n$ 但 $k$ 到达上界而 $n$ 没有的情况，这表明 $f[i][0][1]$ 是有意义的。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=(<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;x+=y;<span class="keyword">return</span> x&gt;=mod?x-mod:x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dec</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;x-=y;<span class="keyword">return</span> x&lt;<span class="number">0</span>?x+mod:x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;<span class="keyword">return</span> (ll)x*y%mod;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">qpow</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(k) &#123;</span><br><span class="line">        <span class="keyword">if</span>(k&amp;<span class="number">1</span>) ans=<span class="built_in">mul</span>(ans,n);</span><br><span class="line">        n=<span class="built_in">mul</span>(n,n);k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    m=std::<span class="built_in">min</span>(n,m);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">inc</span>(<span class="built_in">mul</span>(<span class="built_in">mul</span>(m+<span class="number">1</span>,m+<span class="number">2</span>),<span class="built_in">qpow</span>(<span class="number">2</span>,mod<span class="number">-2</span>)),(m+<span class="number">1</span>&lt;=n)?<span class="built_in">mul</span>(m+<span class="number">1</span>,n-m):<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> upn[<span class="number">65</span>],upm[<span class="number">65</span>],cnt=<span class="number">0</span>,f[<span class="number">65</span>][<span class="number">2</span>][<span class="number">2</span>];<span class="comment">//当前从高到低处理到第i位，n是否达到上界0/1，m是否达到上界0/1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t,k;<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;t,&amp;k);</span><br><span class="line">    <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">        ll n,m;<span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld&quot;</span>,&amp;n,&amp;m);m=std::<span class="built_in">min</span>(n,m);<span class="comment">//保证m不超过n</span></span><br><span class="line">        <span class="keyword">int</span> ans=<span class="built_in">inc</span>(<span class="built_in">mul</span>(<span class="built_in">mul</span>((m+<span class="number">1</span>)%mod,(m+<span class="number">2</span>)%mod),<span class="built_in">qpow</span>(<span class="number">2</span>,mod<span class="number">-2</span>)),(m+<span class="number">1</span>&lt;=n)?<span class="built_in">mul</span>((m+<span class="number">1</span>)%mod,(n-m)%mod):<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">1</span>) &#123;<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);<span class="keyword">continue</span>;&#125;</span><br><span class="line">        cnt=<span class="number">0</span>;<span class="keyword">while</span>(n||m) &#123;++cnt;upn[cnt]=n%k;n/=k;upm[cnt]=m%k;m/=k;&#125;</span><br><span class="line">        std::<span class="built_in">reverse</span>(upn+<span class="number">1</span>,upn+<span class="number">1</span>+cnt);std::<span class="built_in">reverse</span>(upm+<span class="number">1</span>,upm+<span class="number">1</span>+cnt);</span><br><span class="line">        <span class="built_in">memset</span>(f,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(f));f[<span class="number">0</span>][<span class="number">1</span>][<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;++i) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">mul</span>(<span class="built_in">mul</span>(k,k+<span class="number">1</span>),<span class="built_in">qpow</span>(<span class="number">2</span>,mod<span class="number">-2</span>))));<span class="comment">//0~k-1 0~k-1</span></span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">0</span>][<span class="number">1</span>],<span class="built_in">calc</span>(k<span class="number">-1</span>,upm[i]<span class="number">-1</span>)));<span class="comment">//0~k-1 0~upm-1</span></span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">0</span>],<span class="built_in">calc</span>(upn[i]<span class="number">-1</span>,k<span class="number">-1</span>)));<span class="comment">//0~upn-1 0~k-1</span></span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">1</span>],<span class="built_in">calc</span>(upn[i]<span class="number">-1</span>,upm[i]<span class="number">-1</span>)));<span class="comment">//0~upn-1 0~upm-1</span></span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">1</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">1</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">0</span>][<span class="number">1</span>],k-upm[i]));<span class="comment">//0~k-1 upm</span></span><br><span class="line">            f[i][<span class="number">0</span>][<span class="number">1</span>]=<span class="built_in">inc</span>(f[i][<span class="number">0</span>][<span class="number">1</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">1</span>],upn[i]&gt;=upm[i]?upn[i]-upm[i]:<span class="number">0</span>));<span class="comment">//0~upn-1 upm</span></span><br><span class="line">            f[i][<span class="number">1</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">1</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">0</span>],std::<span class="built_in">min</span>(upn[i]+<span class="number">1</span>,k)));<span class="comment">//upn 0~k-1</span></span><br><span class="line">            f[i][<span class="number">1</span>][<span class="number">0</span>]=<span class="built_in">inc</span>(f[i][<span class="number">1</span>][<span class="number">0</span>],<span class="built_in">mul</span>(f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">1</span>],std::<span class="built_in">min</span>(upn[i]+<span class="number">1</span>,upm[i])));<span class="comment">//upn 0~upm-1</span></span><br><span class="line">            f[i][<span class="number">1</span>][<span class="number">1</span>]=<span class="built_in">inc</span>(f[i][<span class="number">1</span>][<span class="number">1</span>],f[i<span class="number">-1</span>][<span class="number">1</span>][<span class="number">1</span>]*(upm[i]&lt;=upn[i]));<span class="comment">//upn upm</span></span><br><span class="line">        &#125;</span><br><span class="line">        ans=<span class="built_in">dec</span>(ans,<span class="built_in">inc</span>(<span class="built_in">inc</span>(<span class="built_in">inc</span>(f[cnt][<span class="number">0</span>][<span class="number">0</span>],f[cnt][<span class="number">0</span>][<span class="number">1</span>]),f[cnt][<span class="number">1</span>][<span class="number">0</span>]),f[cnt][<span class="number">1</span>][<span class="number">1</span>]));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+                <br><hr>
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/ctsc-2017-gift/" data-toggle="tooltip" data-placement="top" title="【CTSC 2017】吉夫特"><i class="fa fa-angle-left"></i> 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/mountain-and-sea/" data-toggle="tooltip" data-placement="top" title="【音乐】山海">下一篇 <i class="fa fa-angle-right"></i></a>
+                        </li>
+                    
+                </ul>
+
+                
+            </div>
+            <!-- Old Sidebar Container Has Been Deleted -->
+        </div>
+    </div>
+</article>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg" id="rss">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #rss {color: #404040;}
+                                #rss:hover {color: #F5A623;}
+                            </style>
+                        </a>
+                    </li>
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/whz0325">
+                            <span class="fa-stack fa-lg" id="zhihu">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                            <style>
+                                #zhihu {color: #404040;}
+                                #zhihu:hover {color: #0384FF;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=1669135547&site=qq&menu=yes">
+                            <span class="fa-stack fa-lg" id="qq">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #qq {color: #404040;}
+                                #qq:hover {color: #F4000F;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/whz0325">
+                            <span class="fa-stack fa-lg" id="github">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <style>
+                                #github {color: #404040;}
+                                #github:hover {color: #171515;}
+                            </style>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 2017-2023 WHZ0325
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
+                    </span>
+                    |
+                    <span id="busuanzi_container_site_uv">
+                        本站总访客数 <span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-pulse"></i></span> 人次
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://whz0325.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!--busuanzi.js -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '2ae416ce2071d64b26f967fa5dd778b4';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
