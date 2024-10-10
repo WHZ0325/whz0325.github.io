@@ -418,7 +418,7 @@
 <li><code>int operator () () const &#123; return 1024; &#125;</code>：仿函数，可用 lambda 表达式代替。</li>
 <li>重载 <code>-&gt;</code> 运算符须保证：返回指针类型或返回的自定义类型重载了 <code>-&gt;</code>。</li>
 <li><code>ostream &amp;operator &lt;&lt; (ostream &amp;out, const T &amp;t) &#123; out &lt;&lt; t.a; return out; &#125;</code></li>
-<li><code>istream &amp;operator &lt;&lt; (istream &amp;in, const T &amp;t) &#123; in &gt;&gt; t.a; return in; &#125;</code></li>
+<li><code>istream &amp;operator &gt;&gt; (istream &amp;in, const T &amp;t) &#123; in &gt;&gt; t.a; return in; &#125;</code></li>
 </ul>
 <p>注：<code>lhs</code>、<code>rhs</code> 分别是 Left Hand Side 和 Right Hand Side 的缩写。</p>
 <p>左操作数是自定义类型的尽量使用成员函数的形式重载，不要重载运算符 <code>&amp;&amp;</code>、<code>||</code>、<code>,</code>。</p>
@@ -491,6 +491,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">B</span> &#123;</span></span><br><span class="line">        <span class="keyword">int</span> b;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(A a)</span> </span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d\n&quot;</span>, a.a, a.pub_a, a.pri_a);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">int</span> pub_b;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">int</span> pri_b;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(B b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// error: &#x27;b&#x27; is a private member of &#x27;A::B&#x27;</span></span><br><span class="line">        <span class="comment">// printf(&quot;%d %d %d\n&quot;, b.b, b.pub_b, b.pri_b);</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b.pub_b);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> pub_a;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> pri_a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">内部类可以访问外部类的私有成员变量。</span></span><br><span class="line"><span class="comment">外不能不能访问内部类的私有成员变量。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="友元-friend"><a href="#友元-friend" class="headerlink" title="友元 friend"></a>友元 friend</h5><p>友元函数/友元类：允许访问类的私有成员，写在类的开始，不指明访问权限。</p>
+<p>一种很不优雅的妥协，friend关键字只能用在类中，表明允许其后的函数/类访问该类的私有元素，这个函数/类不在当前类中，只需照常使用，额外增加了访问权限而已。</p>
 <h5 id="流"><a href="#流" class="headerlink" title="流"></a>流</h5><p>字节流/字符流/文件流，<code>istream</code> 和 <code>ostream</code>。</p>
 <h3 id="类间关系"><a href="#类间关系" class="headerlink" title="类间关系"></a>类间关系</h3><p>强关联/硬关联/弱关联/软关联：？？？</p>
 <p>联系强弱：（另一类作为）成员变量 &gt; 函数参数和返回值 &gt; 函数实现（局部变量）</p>
@@ -624,6 +625,10 @@
 <p>shared_ptr：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/547647844">https://zhuanlan.zhihu.com/p/547647844</a></p>
 <p>UML：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/109655171">https://zhuanlan.zhihu.com/p/109655171</a></p>
 <p>虚继承内存空间安排：<a target="_blank" rel="noopener" href="https://blog.csdn.net/SuLiJuan66/article/details/48897867">https://blog.csdn.net/SuLiJuan66/article/details/48897867</a></p>
+<p>虚继承：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/104344453">https://zhuanlan.zhihu.com/p/104344453</a></p>
+<h3 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h3><p>private构造函数</p>
+<p>重载区分</p>
+<p>拷贝构造函数的循环</p>
 
 
                 <br><hr>
@@ -635,7 +640,7 @@
                     
                     
                         <li class="next">
-                            <a href="/6.s081-lab/" data-toggle="tooltip" data-placement="top" title="6.S081 实验笔记">下一篇 <i class="fa fa-angle-right"></i></a>
+                            <a href="/lanqiao-2022-i/" data-toggle="tooltip" data-placement="top" title="【蓝桥杯 2022】最优清零方案">下一篇 <i class="fa fa-angle-right"></i></a>
                         </li>
                     
                 </ul>
@@ -757,7 +762,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 2017-2023 WHZ0325
+                    Copyright &copy; 2017-2024 WHZ0325
                     <br>
                     <span id="busuanzi_container_site_pv">
                         本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次

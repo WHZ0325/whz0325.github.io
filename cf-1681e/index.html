@@ -13,11 +13,11 @@
 
     <title>
         
-            WHZ0325&#39;s Space
+            【Codeforces 1681E】Non-Intersecting Subpermutations - WHZ0325&#39;s Space
         
     </title>
 
-    <link rel="canonical" href="https://whz0325.github.io/archives/2023/05/">
+    <link rel="canonical" href="https://whz0325.github.io/cf-1681e/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -141,178 +141,110 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/images/bg-img/archives.jpg')">
+    
+<!-- Post Header -->
+
+<header class="intro-header" style="background-image: url('/images/bg-img/4.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1 style="font-size: 60px;">归档</h1>
-                    
-                        <h2 class="subheading">2023 年 5 月</h2>
-                    
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                            <a class="tag" href="/tags/动态规划/" title="动态规划">动态规划</a>
+                        
+                            <a class="tag" href="/tags/计数/" title="计数">计数</a>
+                        
+                    </div>
+                    <h1 style="font-size: 40px;">【Codeforces 1681E】Non-Intersecting Subpermutations</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by WHZ0325 on 2023-09-05,
+                        <span id="busuanzi_container_page_pv">
+                            Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span> times
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- 归档列表 -->
-            <div class="one-tag-list">
-                
-                    <div class="post-preview">
-                        <a href="/2023-05-18/">
-                            <h2 class="post-title" style="margin-top: 16px;margin-bottom: 6px;">5月做题记录</h2>
-                            <h3 class="post-subtitle" style="margin-bottom: 6px;">2023-05-18 22:58:00</h3>
-                        </a>
-                    </div>
-                    <hr style="margin-top: 16px;margin-bottom: 16px;">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+            
+                <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定 $n, k$，求由 $[1,k]$ 组成所有长度为 $n$ 的序列的贡献之和，一个序列的贡献为能够在其中找到的最多互不交叉的段数使得每一段长度为 $k$ 且恰好包含 $[1,k]$ 中每个数，输出答案对 $998244353$ 取模的值。</p>
+<p>$2\le n,k\le 4000$。</p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>设 $f[i][j]$ 表示前 $i$ 个数中末尾连续互不相同的数有 $j$ 个时的方案数，考虑转移：</p>
+<ol>
+<li>由前 $i - 1$ 个数补充一个不在其已有互不相同的数集中的数得到，这样的数由 $k - (j - 1)$ 个，即 $(k-(j - 1))\times f[i - 1][j - 1]$，对于 $j = 0$ 的情况则从 $f[i - 1][k - 1]$ 转移。</li>
+<li>由前 $i - 1$ 个数补充一个在其已有互不相同的数集中的数得到，枚举新数在原数集中的位置，则应由所有 $t\ge j$ 的 $f[i-1][t]$ 转移而来。例如，对于 $f[i-1][j-1]$ 而言，添加一个在 $j - 1$ 个数中出现过的数可以转移到 $f[i][1\dots j-1]$（去掉一段数再加上一个数）。</li>
+</ol>
+<p>累计答案时考虑每一个刚刚完成的段对答案的贡献，即 $\sum k^{n-i}f[i][0]$。</p>
+<p>时间复杂度为 $O(nk)$。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 4005</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> y)</span> </span>&#123; x += y; <span class="keyword">if</span>(x &gt;= mod) x -= mod; &#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> (ll)x * y % mod; &#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">qpow</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(k &amp; <span class="number">1</span>) ans = <span class="built_in">mul</span>(ans, n);</span><br><span class="line">        n = <span class="built_in">mul</span>(n, n); k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[N][N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k; <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;k);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>; f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line"></span><br><span class="line">        f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][k - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; k; ++j) &#123;</span><br><span class="line">            f[i][j] = <span class="built_in">mul</span>(f[i - <span class="number">1</span>][j - <span class="number">1</span>], k - (j - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = k - <span class="number">1</span>; j &gt;= <span class="number">1</span>; --j) &#123;</span><br><span class="line">            <span class="built_in">inc</span>(cur, f[i - <span class="number">1</span>][j]);</span><br><span class="line">            <span class="built_in">inc</span>(f[i][j], cur);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">inc</span>(ans, <span class="built_in">mul</span>(f[i][<span class="number">0</span>], <span class="built_in">qpow</span>(k, n - i)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+                <br><hr>
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2023-09-06/" data-toggle="tooltip" data-placement="top" title="一类换根问题"><i class="fa fa-angle-left"></i> 上一篇</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/icpc-2022-nanjing/" data-toggle="tooltip" data-placement="top" title="ICPC 2022 南京">下一篇 <i class="fa fa-angle-right"></i></a>
+                        </li>
+                    
+                </ul>
+
                 
             </div>
-            
-            <ul class="pager">
-    
-    
-</ul>
+            <!-- Old Sidebar Container Has Been Deleted -->
         </div>
-        <!-- Sidebar Container -->
-        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container">
-            <!-- Annocement -->
-
-    <section>
-        <br>
-        <h5>公告</h5>
-        <div>博客使用 Hux 主题。</div>
-    </section>
-
-<!-- Short About -->
-<section class="visible-md visible-lg">
-    <hr>
-    <!-- <h5><a href="/about/">关于</a></h5> -->
-    <h5>关于</h5>
-    <div class="short-about">
-        
-            <img src="/./images/logo.jpg" />
-        
-        
-            <p>WHZ0325，喜欢技术和艺术。</p>
-        
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-                <li>
-                    <a href="/atom.xml">
-                        <span class="fa-stack fa-lg" id="rss0">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <style>
-                            #rss0:hover {color: #F5A623;}
-                        </style>
-                    </a>
-                </li>
-            
-            
-            
-                <li>
-                    <a target="_blank" href="https://www.zhihu.com/people/whz0325">
-                        <span class="fa-stack fa-lg" id="zhihu0">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-1x fa-inverse">知</i>
-                        </span>
-                        <style>
-                            #zhihu0:hover {color: #0384FF;}
-                        </style>
-                    </a>
-                </li>
-            
-            
-            
-                <li>
-                    <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=1669135547&site=qq&menu=yes">
-                        <span class="fa-stack fa-lg" id="qq0">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <style>
-                            #qq0:hover {color: #F4000F;}
-                        </style>
-                    </a>
-                </li>
-            
-            
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/whz0325">
-                        <span class="fa-stack fa-lg" id="github0">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <style>
-                            #github0:hover {color: #171515;}
-                        </style>
-                    </a>
-                </li>
-            
-            
-        </ul>
     </div>
-</section>
-<style type="text/css">
-    .sidebar-list ul {
-        padding: 0;
+</article>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
-    .sidebar-list ul li {
-        list-style: none;
-    }
-    .archive-list-count:before {
-        content: "（";
-    }
-    .archive-list-count:after {
-        content: "）";
-    }
-    .category-list-count:before {
-        content: "（";
-    }
-    .category-list-count:after {
-        content: "）";
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
     }
 </style>
-<!-- Categories -->
 
-    <section>
-        <hr>
-        <h5>分类</h5>
-        <div class="sidebar-list">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AB%9E%E8%B5%9B%E9%A2%98%E8%A7%A3/">竞赛题解</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a><span class="category-list-count">2</span></li></ul>
-        </div>
-    </section>
-
-<!-- Tags -->
-
-    <section>
-        <hr>
-        <h5>标签</h5>
-        <div><a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lucas%E5%AE%9A%E7%90%86/" style="font-size: 17.5px;">Lucas定理</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RISC-V/" style="font-size: 10px;">RISC-V</a> <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/Trie%E6%A0%91/" style="font-size: 10px;">Trie树</a> <a href="/tags/macOS/" style="font-size: 15px;">macOS</a> <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/" style="font-size: 12.5px;">中国剩余定理</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%B3%95/" style="font-size: 12.5px;">二分法</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%88%86%E6%95%B0%E8%A7%84%E5%88%92/" style="font-size: 10px;">分数规划</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 20px;">动态规划</a> <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" style="font-size: 10px;">单调队列</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA/" style="font-size: 10px;">后缀自动机</a> <a href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E5%90%88%E5%B9%B6/" style="font-size: 10px;">启发式合并</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 10px;">图论</a> <a href="/tags/%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86/" style="font-size: 10px;">容斥原理</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 12.5px;">并查集</a> <a href="/tags/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/" style="font-size: 10px;">抽象代数</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E6%95%B0%E4%BD%8DDP/" style="font-size: 12.5px;">数位DP</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 12.5px;">数论</a> <a href="/tags/%E6%A0%88/" style="font-size: 10px;">栈</a> <a href="/tags/%E6%A0%91%E5%BD%A2DP/" style="font-size: 10px;">树形DP</a> <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" style="font-size: 10px;">点分治</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/" style="font-size: 10px;">组合计数</a> <a href="/tags/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" style="font-size: 10px;">莫比乌斯反演</a> <a href="/tags/%E8%B4%AA%E5%BF%83%E6%B3%95/" style="font-size: 12.5px;">贪心法</a> <a href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" style="font-size: 10px;">费用流</a></div>
-    </section>
-
-<!-- Archives -->
-<section>
-    <hr>
-    <h5>归档</h5>
-    <div class="sidebar-list">
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">2023 年 05 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">2023 年 04 月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">2023 年 03 月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">2023 年 01 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">2022 年 11 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">2022 年 10 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">2022 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">2022 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">2021 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">2019 年 07 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">2019 年 05 月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">2019 年 04 月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">2019 年 03 月</a><span class="archive-list-count">4</span></li></ul>
-    </div>
-</section>
-<!-- Links Blog -->
-
-        </div>
-    </div>
-</div>
 
     <!-- Footer -->
     <!-- Footer -->
@@ -389,7 +321,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 2017-2023 WHZ0325
+                    Copyright &copy; 2017-2024 WHZ0325
                     <br>
                     <span id="busuanzi_container_site_pv">
                         本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
