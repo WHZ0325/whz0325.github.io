@@ -56,7 +56,7 @@
 
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
 </head>
 
 
@@ -179,10 +179,10 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
             
-                <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个长度为 $n$ 的序列 $A$，求有多少个子序列满足所选下标集合为 ${b_1,b_2,\dots,b_k}$ 时 $a_{b_1}\ge a_{b_2}\ge\dots\ge a_{b_{k-1}}\ge a_{b_k}$ 且 $\prod_{i=2}^kC_{a_{i-1}}^{a_i}\equiv 1\pmod 2$，输出答案模 $10^9+7$ 的值。</p>
-<p>$1\le n\le 211985$，$1\le a_i\le 233333$。所有的 $a_i$ 互不相同，也就是说不存在 $i,j$ 同时满足 $1\le i\lt j\le n$ 和 $a_i=a_j$。</p>
+                <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个长度为 $n$ 的序列 $A$，求有多少个子序列满足所选下标集合为 ${b_1,b_2,\dots,b_k}$ 时 $a_{b_1}\ge a_{b_2}\ge\dots\ge a_{b_{k-1}}\ge a_{b_k}$ 且 $\prod_{i&#x3D;2}^kC_{a_{i-1}}^{a_i}\equiv 1\pmod 2$，输出答案模 $10^9+7$ 的值。</p>
+<p>$1\le n\le 211985$，$1\le a_i\le 233333$。所有的 $a_i$ 互不相同，也就是说不存在 $i,j$ 同时满足 $1\le i\lt j\le n$ 和 $a_i&#x3D;a_j$。</p>
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>分析组合数连乘的式子，由于模数很小为 $2$，考虑使用 Lucas 定理求解。</p>
-<p>这里需要想到，Lucas 定理拆分后的组合数中每一项只可能有四种情况，即 $C_0^0=C_1^0=C_1^1=1$ 或 $C_0^1=0$，这表明相邻两个数二进制拆分后不存在 $a_i$ 上的一位大于 $a_{i-1}$ 上对应的位，看作集合的话说明 $a_i$ 是 $a_{i-1}$ 的子集，也就是 $a_{i-1}\bigcap a_i=a_i$，同时也满足了这是一个不下降的子序列，因为一定有 $a_{i-1}\ge a_i$。</p>
+<p>这里需要想到，Lucas 定理拆分后的组合数中每一项只可能有四种情况，即 $C_0^0&#x3D;C_1^0&#x3D;C_1^1&#x3D;1$ 或 $C_0^1&#x3D;0$，这表明相邻两个数二进制拆分后不存在 $a_i$ 上的一位大于 $a_{i-1}$ 上对应的位，看作集合的话说明 $a_i$ 是 $a_{i-1}$ 的子集，也就是 $a_{i-1}\bigcap a_i&#x3D;a_i$，同时也满足了这是一个不下降的子序列，因为一定有 $a_{i-1}\ge a_i$。</p>
 <p>一个暴力的做法是考虑 DP，定义 $f[i]$ 表示处理以第 $i$ 个数为末尾的方案数，枚举上一个选择的数的下标 $j$ 即可转移。时间复杂度为 $O(n^2)$，期望得分 $70$ 分。</p>
 <p>注意到前面选取的数一定是当前数超集（二进制状态下看作集合时），可以重新定义 DP 方程，设 $f[i][j]$ 表示前  $i$ 个数中，当前子序列末尾的数为 $j$（可以看作集合）时的方案数，转移只需要枚举子集就可以了，因为 $n$ 比 $a_i$ 的最大值要小，而 $233333\lt 2^{18}$，因此总的时间复杂度为 $O(3^{18})$。</p>
 <p>很多网上的题解到这里就结束了，但这个复杂度显然是不靠谱的，可以通过拆位的方法对其进行优化。</p>
@@ -190,7 +190,7 @@
 <blockquote>
 <p>怎么枚举超集呢？只需枚举补集的子集再取补集就可以了。</p>
 </blockquote>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=(<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> y)</span> </span>&#123;x+=y;<span class="keyword">if</span>(x&gt;=mod) x-=mod;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dec</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;x-=y;<span class="keyword">return</span> x&lt;<span class="number">0</span>?x+mod:x;&#125;</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">1</span>&lt;&lt;<span class="number">9</span>][<span class="number">1</span>&lt;&lt;<span class="number">9</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> a;<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);<span class="keyword">int</span> x=(a&gt;&gt;<span class="number">9</span>),y=(a&amp;((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>));</span><br><span class="line">        <span class="keyword">int</span> res=<span class="number">1</span>;y=(y^(<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>);<span class="built_in">inc</span>(res,f[x][(<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> s=y;s;s=((s<span class="number">-1</span>)&amp;y)) <span class="built_in">inc</span>(res,f[x][s^((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>)]);</span><br><span class="line">        y=(y^((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>));<span class="built_in">inc</span>(f[<span class="number">0</span>][y],res);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> s=x;s;s=((s<span class="number">-1</span>)&amp;x)) <span class="built_in">inc</span>(f[s][y],res);</span><br><span class="line">        <span class="built_in">inc</span>(ans,<span class="built_in">dec</span>(res,<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mod=(<span class="type">int</span>)<span class="number">1e9</span><span class="number">+7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">inc</span><span class="params">(<span class="type">int</span> &amp;x,<span class="type">int</span> y)</span> </span>&#123;x+=y;<span class="keyword">if</span>(x&gt;=mod) x-=mod;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">dec</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> </span>&#123;x-=y;<span class="keyword">return</span> x&lt;<span class="number">0</span>?x+mod:x;&#125;</span><br><span class="line"><span class="type">int</span> f[<span class="number">1</span>&lt;&lt;<span class="number">9</span>][<span class="number">1</span>&lt;&lt;<span class="number">9</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);<span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">register</span> <span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">        <span class="type">int</span> a;<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);<span class="type">int</span> x=(a&gt;&gt;<span class="number">9</span>),y=(a&amp;((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>));</span><br><span class="line">        <span class="type">int</span> res=<span class="number">1</span>;y=(y^(<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>);<span class="built_in">inc</span>(res,f[x][(<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="type">int</span> s=y;s;s=((s<span class="number">-1</span>)&amp;y)) <span class="built_in">inc</span>(res,f[x][s^((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>)]);</span><br><span class="line">        y=(y^((<span class="number">1</span>&lt;&lt;<span class="number">9</span>)<span class="number">-1</span>));<span class="built_in">inc</span>(f[<span class="number">0</span>][y],res);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">register</span> <span class="type">int</span> s=x;s;s=((s<span class="number">-1</span>)&amp;x)) <span class="built_in">inc</span>(f[s][y],res);</span><br><span class="line">        <span class="built_in">inc</span>(ans,<span class="built_in">dec</span>(res,<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -325,7 +325,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 2017-2024 WHZ0325
+                    Copyright &copy; 2017-2025 WHZ0325
                     <br>
                     <span id="busuanzi_container_site_pv">
                         本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
@@ -476,21 +476,6 @@
 </script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -56,7 +56,7 @@
 
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
 </head>
 
 
@@ -178,28 +178,28 @@
                 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这两天想安装 Nix 用于处理一个转 midi 的程序，结果由于网络问题没完全安装成，卸载的过程比较艰难所以记录一下。</p>
 <h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>在 <a target="_blank" rel="noopener" href="https://github.com/NixOS/nix/issues/458">GitHub</a> 上找到了一个相关问题，链接到了一个<a target="_blank" rel="noopener" href="https://iohk.zendesk.com/hc/en-us/articles/4415830650265-Uninstall-nix-on-MacOS">一年前的教程</a>，虽然有点复杂，但是打算参照这个教程试试看。</p>
 <p>第一步，前往 <code>/etc/</code> 这个目录，可以看到存在教程中提到的 <code>zshrc.backup-before-nix</code> 和 <code>bashrc.backup-before-nix</code> 两个文件，直接用它们覆盖：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mv /etc/zshrc.backup-before-nix /etc/zshrc</span><br><span class="line">sudo mv /etc/bashrc.backup-before-nix /etc/bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> /etc/zshrc.backup-before-nix /etc/zshrc</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> /etc/bashrc.backup-before-nix /etc/bashrc</span><br></pre></td></tr></table></figure>
 
 <p>第二步，在终端输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vifs</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vifs</span><br></pre></td></tr></table></figure>
 
 <p>可以看到注释下面有一行与 Nix 相关，直接在 Vim 删去（$6$ 是行号）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:6d</span><br></pre></td></tr></table></figure>
 
 <p>第三步，打开 <code>/etc/synthetic.conf</code>，里面只有一行，与 Nix 相关，按照教程直接删去：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /etc/synthetic.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /etc/synthetic.conf</span><br></pre></td></tr></table></figure>
 
 <p>第四步，与教程略有不同，可能是我没安装完全的缘故，前往 <code>/Library/LaunchDaemons</code> 目录（注意比教程中多了个 <code>s</code>），看到有一个 <code>org.nixos</code> 开头的列表项，删除它：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo launchctl unload /Library/LaunchDaemons/org.nixos.xxx.plist</span><br><span class="line">sudo rm /Library/LaunchDaemons/org.nixos.xxx.plist</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> launchctl unload /Library/LaunchDaemons/org.nixos.xxx.plist</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /Library/LaunchDaemons/org.nixos.xxx.plist</span><br></pre></td></tr></table></figure>
 
 <p>第五步，复制命令，移除所有相关文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /etc/nix /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.nix-channels ~/.nix-profile ~/.nix-defexpr ~/.nix-channels</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /etc/nix /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.nix-channels ~/.nix-profile ~/.nix-defexpr ~/.nix-channels</span><br></pre></td></tr></table></figure>
 
 <p>第六步，继续在终端中复制命令执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dscl . delete /Groups/nixbld</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 32); <span class="keyword">do</span> sudo dscl . -delete /Users/_nixbld<span class="variable">$i</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dscl . delete /Groups/nixbld</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 32); <span class="keyword">do</span> <span class="built_in">sudo</span> dscl . -delete /Users/_nixbld<span class="variable">$i</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
 <p>最后一步，与教程中有所不同，参考 GitHub 上的方案，先重新启动，再执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo diskutil apfs deleteVolume /Volumes/Nix\ Store</span><br><span class="line">sudo rm -rf /nix/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> diskutil apfs deleteVolume /Volumes/Nix\ Store</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> -rf /nix/</span><br></pre></td></tr></table></figure>
 
 <p>重新启动，撒花！🎉</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>必应 yyds！</p>
@@ -336,7 +336,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 2017-2024 WHZ0325
+                    Copyright &copy; 2017-2025 WHZ0325
                     <br>
                     <span id="busuanzi_container_site_pv">
                         本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
@@ -487,21 +487,6 @@
 </script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

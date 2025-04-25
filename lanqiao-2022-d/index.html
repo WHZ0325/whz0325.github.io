@@ -56,7 +56,7 @@
 
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WHZ0325's Space" type="application/atom+xml">
 </head>
 
 
@@ -178,9 +178,9 @@
                 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>求最小的 $k$，使得 $gcd(a+k,b+k)$ 的值最大。</p>
 <p>$1\le a\lt b\le 10^{18}$。</p>
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>数论忘光了，思博选手不会写数学题。。。</p>
-<p>首先有 $gcd(a,b)=gcd(b,a-b)$，很好理解：$a=gc$，$b=gd$ 的话 $a-b=g(c-d)$ 依然是两者最大公约数的倍数，这就是辗转相除法的基础。</p>
-<p>那么，有 $gcd(a+k,b+k)=gcd(a-b,a+k)$ 且 $gcd(a+k,b+k)=gcd(a-b,b+k)$，一定能构造出 $g=a-b$ 的解，取 $a-b|a+k$ 和 $a-b|b+k$ 中最小的 $k$ 即可。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">long</span> a = in.nextLong(), b = in.nextLong(), d = Math.abs(a - b);</span><br><span class="line">        System.out.println(Math.min(d - a % d, d - b % d));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先有 $gcd(a,b)&#x3D;gcd(b,a-b)$，很好理解：$a&#x3D;gc$，$b&#x3D;gd$ 的话 $a-b&#x3D;g(c-d)$ 依然是两者最大公约数的倍数，这就是辗转相除法的基础。</p>
+<p>那么，有 $gcd(a+k,b+k)&#x3D;gcd(a-b,a+k)$ 且 $gcd(a+k,b+k)&#x3D;gcd(a-b,b+k)$，一定能构造出 $g&#x3D;a-b$ 的解，取 $a-b|a+k$ 和 $a-b|b+k$ 中最小的 $k$ 即可。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">long</span> <span class="variable">a</span> <span class="operator">=</span> in.nextLong(), b = in.nextLong(), d = Math.abs(a - b);</span><br><span class="line">        System.out.println(Math.min(d - a % d, d - b % d));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -315,7 +315,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 2017-2024 WHZ0325
+                    Copyright &copy; 2017-2025 WHZ0325
                     <br>
                     <span id="busuanzi_container_site_pv">
                         本站总访问量 <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-pulse"></i></span> 次
@@ -466,21 +466,6 @@
 </script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
